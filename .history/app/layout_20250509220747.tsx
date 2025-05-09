@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
-
 import "./globals.css";
 
 const mona_Sans = Mona_Sans({
@@ -21,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${mona_Sans.className} antialiased pattern`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>
