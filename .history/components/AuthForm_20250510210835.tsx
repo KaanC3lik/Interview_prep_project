@@ -10,7 +10,6 @@ import { Form } from "@/components/ui/form"
 import Link from "next/link";
 import { toast } from "sonner";
 import FormField from "./FormField";
-import { useRouter } from "next/navigation";
 
 const authFormSchema = (type: FormType) => {
     return z.object({
@@ -21,7 +20,6 @@ const authFormSchema = (type: FormType) => {
 }
 
 const AuthForm = ({ type }: { type: FormType }) => {
-    const router = useRouter()
     const formSchema = authFormSchema(type)
 
     // 1. Define your form.
@@ -37,12 +35,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
         try {
-            if (type === "sign-up") {
-                toast.success("Account created succesfully. Please Sign in")
-                router.push("/sign-in")
+            if (type === "sign-in") {
+                console.log("SIGN UP", values)
             } else {
-                toast.success("Sign in succesfully.")
-                router.push("/")
+                console.log("SIGN IN", values)
             }
         } catch (error) {
             console.log(error);
@@ -64,25 +60,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
                         {!isSignIn && (
                             <FormField
                                 control={form.control}
-                                name="name"
-                                label="Name"
-                                placeholder="Your Name"
-                            />
+                                name="name" label="Name"
+                                placeholder="Your Name" />
                         )}
-                        <FormField
-                            control={form.control}
-                            name="email"
-                            label="Email"
-                            placeholder="Your Email Address"
-                            type="email"
-                        />
-                        <FormField
-                            control={form.control}
-                            name="password"
-                            label="Password"
-                            placeholder="Enter Your Password"
-                            type="password"
-                        />
+                        <p>Email</p>
+                        <p>Password</p>
                         <Button className="btn" type="submit">{isSignIn ? 'Sign in' : 'Create an Account'}</Button>
                     </form>
                 </Form>
