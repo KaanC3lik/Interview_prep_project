@@ -65,12 +65,14 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
     const handleCall = async () => {
         setCallStatus(CallStatus.CONNECTING);
 
-        try {
-            await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!);
-        } catch (error) {
-            console.log(error)
-        }
-
+        await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+            clientMessages: [],
+            serverMessages: [],
+            variableValues: {
+                username: userName,
+                userid: userId,
+            }
+        })
     }
 
     const handleDisconnect = async () => {
